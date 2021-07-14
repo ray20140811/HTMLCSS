@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        Here
+    </div>
+    <div>
+        Here
+    </div>
+    <div>
+        And Here
+    </div>
+    </form>
+    
+    <script language="javascript">
+
+        //Case 1: 純粹的調用 (Simple call): 如果直接調用函式，此函式的 this 會指向 Window
+        // window.test = 'window test';
+        // function callMe() {
+        //     console.log('callMe:', this);   //this會指向window
+        //     console.log(this.test);
+
+        //     //Case 2: 
+        //     function callMeAgain() {
+        //         console.log('callMeAgain:',this);
+        //         console.log(this.test);
+        //     }
+
+        //    callMeAgain();
+        // }
+        // callMe();
+
+        // // Case 3: 物件的方法調用 (As an object method) 
+        // // 物件的方法調用時 this 會指向調用的物件。
+        // // 純粹的變數上並調用它時，這個 this 將會指向全域。
+        
+        // function callName() {
+        //     console.log(this.name);
+        // }
+
+        // var name = '全域name';
+        // var obj = {
+        //     name: '物件name',
+        //     callName: callName
+        // }
+        // callName();
+        // obj.callName();
+        // callThisName = obj.callName();
+
+
+        // //Case 4: DOM 物件調用 (As a DOM event handler):
+        // //DOM 搭配 addEventListener 時，此 this 所指向的則是該 DOM。
+        // var elements = document.getElementsByTagName('div');
+        // function changeDOM() {
+        //     console.log(this);
+        //     this.style.border = '1px solid red';
+        // }
+
+        // for (var i = 0; i < elements.length; i++) {
+        //     elements[i].addEventListener('click', changeDOM, false);
+        // }
+
+
+
+        // //Case 5: 建構式的調用 (As a constructor)
+        // //在建構式下會 new 一個新物件，此時的 this 會指向新的物件。
+        // //建構式的 this 也是指向物件本身
+        // var mom = '全域mom'
+        // function FamilyConstructor() {
+        //     console.log(this);
+        //     this.mom = '物件mom'
+        // }
+        // var myFamily = new FamilyConstructor();
+        // console.log(myFamily.mom);
+
+
+
+
+        // //Case 6: 建構式的調用 (As a constructor)
+        // function AnotherFamilyConstructor(newMom) {
+        //     console.log(this);
+        //     this.mom = newMom || 'mom';
+        // }
+        //var realFamily = new AnotherFamilyConstructor();
+        //var myFamily = new AnotherFamilyConstructor('希望是漂亮阿姨');
+        //console.log(realFamily.mom);
+        //console.log(myFamily.mom);
+
+        // //Case 7: 使用 Call 來呼叫 function
+        var name = '全域name';
+        function callName() {
+            this.callName = function () { };
+            console.log(this);
+            console.log(this.name);
+        }
+
+        //callName();                        // '全域name'
+        
+        callName.call();  // '物件name'
+        var o = {name: '物件name'};
+        o.callName = callName();
+        o.callName;
+        //callName.apply({name: '物件name'});
+        
+        //callName.bind({name: '物件name'});
+
+    </script>
+</body>
+</html>
